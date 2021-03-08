@@ -3,9 +3,29 @@
   Contact : alain.couvreur@inria.fr
 ***********************************************
 
+Note : This program runs on a  SageMath version 8.6,
+       Release Date: 2019-01-15,  Using Python 2.7.15.
 
-The main program and some primitives for boolean functions are all in file
-Equivalence.py
+	   If you use a version of Sage based on
+	   Python 3.x, the program may work
+	   after replacing "raw_input" by "input"
+	   at Line 436 od Equivalence.py
+
+
+***********************************************
+Description
+***********************************************
+This program takes a pair of quadratic vectorial
+Boolean function, decides their Extended Affine
+equivalence and recovers it if the function
+are equivalent.
+
+The main program and some primitives for
+boolean functions are all in file
+Equivalence.py. We explain below
+how objects are represented and how to
+use the program.
+***********************************************
 
 
 * Vector functions *
