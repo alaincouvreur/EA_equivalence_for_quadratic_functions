@@ -18,7 +18,12 @@ Description
 This program takes a pair of quadratic vectorial
 Boolean function, decides their Extended Affine
 equivalence and recovers it if the function
-are equivalent.
+are equivalent. The algorithm implemented
+is described in the article:
+
+Anne Canteaut, Alain Couvreur, Léo Perrin.
+Recovering or testing Extended-Affine Equivalence.
+ArXiv : https://arxiv.org/pdf/2103.00078.pdf
 
 The main program and some primitives for
 boolean functions are all in file
