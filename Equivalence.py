@@ -432,7 +432,7 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
                                          range(s)])
         rank_affine = min(rank_affine, m**2+n**2)
         print "   - Linear system on (A, B) : " + str(rank_linear)
-        print "   - Full affine system      : " + str(rank_affine) + "\n"
+        print "   - Full affine system      : " + str(rank_affine) +  "\n"
         raw_input("Press enter to continue...")
     
     ## 6. Enumeration strategy
