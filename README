@@ -1,0 +1,34 @@
+The main program and some primitives for boolean functions are all in file
+Equivalence.py
+
+
+* Vector functions *
+Functions are reprensented as column matrices with entries in a multivariate
+polynomial ring:
+
+R = PolynomialRing(GF(2), 'x', n)
+
+You can generate such functions at random using
+random_vector_function(m, n, degree).
+
+
+* Extended affin equivalence *
+One can construct Extended affine equivalent functions using method
+EAE_function(F, A, a, B, b, C):
+
+
+* Decide equivalence *
+The algorithm for deciding and searching equivalence
+is implemented in the function:
+
+get_equivalence(F, G, limit = 10, s = None, verbose = False):
+
+Encouraged parameters :
+limit = 10, s = 3, verbose = True.
+
+
+* Run a test *
+
+load("test_equivalence.py")
+
+You can modify its contents to perform other tests.
