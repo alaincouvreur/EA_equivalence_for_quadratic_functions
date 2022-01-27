@@ -248,17 +248,17 @@ def solve_system(JF, JG, vv, ww, verbose = False):
     lin_rank = M[:m*n*len(vv)][:].rank()
     aff_rank = M.rank()
     if verbose:
-        print head_str + "nr of equations: " + str(M.nrows()) + "."
-        print head_str + "nr of unknowns: " + str(M.ncols()) + "."
-        print head_str + "Rank of the system : " + str(aff_rank) + "."
-        print head_str +\
+        print(head_str + "nr of equations: " + str(M.nrows()) + ".")
+        print(head_str + "nr of unknowns: " + str(M.ncols()) + ".")
+        print(head_str + "Rank of the system : " + str(aff_rank) + ".")
+        print(head_str +\
             "Rank of the system (without the affine equations): " +\
-            str(lin_rank) + "."
+            str(lin_rank) + ".")
     try:
         T = M.solve_right(V)
     except ValueError:
         if verbose:
-            print head_str + "No solution."
+            print(head_str + "No solution.")
         return (None, None, lin_rank, aff_rank)
 
     return (M.right_kernel(), T, lin_rank, aff_rank)
@@ -396,17 +396,17 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
     rank_tab2 = rank_table(JG)
     rank_dist1 = rank_distribution(rank_tab1)
     rank_dist2 = rank_distribution(rank_tab2)
-    print "\n------------"
-    print "Rank distributions : "
-    print rank_dist1
-    print rank_dist2
-    print "------------"
+    print("\n------------")
+    print("Rank distributions : ")
+    print(rank_dist1)
+    print(rank_dist2)
+    print("------------")
 
     
     ## 3. Compares the rank distributions 
     if rank_dist1 != rank_dist2:
-        print "F and G have not the same Jacobian rank distribution"
-        print "They are not equivalent!\n"
+        print("F and G have not the same Jacobian rank distribution")
+        print("They are not equivalent!\n")
         return (None, None, None, None, None, 0)
  
 
@@ -416,24 +416,24 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
     ref_rk = ref[1]
 
     if verbose:
-        print "ref_rk " + str(ref_rk)
+        print("ref_rk " + str(ref_rk))
 
     ## 5. Evaluating the good number of guesses (unless it
     ## has already been defined)
     if s == None:
         s = number_of_guesses(m, n, ref_rk)
-    print "number s of guesses = " + str(s)
+    print("number s of guesses = " + str(s))
     if verbose:
-        print "Expected ranks : "
+        print("Expected ranks : ")
         rank_linear = sum([ref_rk[i] * (m+n-ref_rk[i])\
                            for i in range(s)])
         rank_linear = min(rank_linear, m**2+n**2)
         rank_affine = rank_linear + sum([n-ref_rk[i] for i in\
                                          range(s)])
         rank_affine = min(rank_affine, m**2+n**2)
-        print "   - Linear system on (A, B) : " + str(rank_linear)
-        print "   - Full affine system      : " + str(rank_affine) +  "\n"
-        raw_input("Press enter to continue...")
+        print("   - Linear system on (A, B) : " + str(rank_linear))
+        print("   - Full affine system      : " + str(rank_affine) +  "\n")
+        input("Press enter to continue...")
     
     ## 6. Enumeration strategy
     ## Here we determine the structure
@@ -446,7 +446,7 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
             strategy.append([ref_rk[i], 1])
 
     if verbose:
-        print "strategy : " + str(strategy)
+        print("strategy : " + str(strategy))
 
     iteration_arrangements = []
     for pair in strategy:
@@ -474,8 +474,8 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
                 k += 1
 
         if verbose:        
-            print "-----"
-            print str(w_candidates)
+            print("-----")
+            print(str(w_candidates))
 
         ## 7.2. Solving the system
         Sol = solve_system(JF, JG, ref_vec[:s], w_candidates, verbose)
@@ -488,14 +488,14 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
         if dimension(Sol[0]) > limit:
             rejection_counter += 1
             if verbose:
-                print "Kernel of dimension " + str(dimension(Sol[0])) +\
-                    ". Excluded."
+                print("Kernel of dimension " + str(dimension(Sol[0])) +\
+                    ". Excluded.")
             continue    
         
         x0 = vector(Sol[1])
             
         if verbose:
-            print "Get in the kernel of dimension : " + str(dimension(Sol[0]))
+            print("Get in the kernel of dimension : " + str(dimension(Sol[0])))
 
         for x in Sol[0]:
             AB =  AB_from_vector(x0 + x, m, n)
@@ -509,16 +509,16 @@ def get_equivalence(F, G, limit = 10, s = None, verbose = False):
                     C_cand = abC[2]
                     G1 = EAE_function(F, A_cand, a_cand, B_cand, b_cand, C_cand)
                     if G1 == G: 
-                        print "\n---------\n\nEquivalence found after " +\
-                            str(counter) + " tries!\n\n------------\n"
+                        print("\n---------\n\nEquivalence found after " +\
+                            str(counter) + " tries!\n\n------------\n")
                         return (A_cand, a_cand, B_cand, b_cand,\
                                 C_cand, counter, ranks)
 
-    print "---------\n\nNO EQUIVALENCE FOUND!\n\n----------"
+    print("---------\n\nNO EQUIVALENCE FOUND!\n\n----------")
     if verbose:
-        print "CAUTION : more than " + str(rejection_counter) + " guesses "+\
-            "led to systems with a solution space whose"
-        print "dimension exceeds " + str(limit) + ", we suggest"+\
-            "to try again with a higher value for"
-        print "the number s of guesses\n----------\n"
+        print("CAUTION : more than " + str(rejection_counter) + " guesses "+\
+            "led to systems with a solution space whose")
+        print("dimension exceeds " + str(limit) + ", we suggest"+\
+            "to try again with a higher value for")
+        print("the number s of guesses\n----------\n")
     return (None, None, None, None, None, counter, ranks)

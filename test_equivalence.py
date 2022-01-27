@@ -4,8 +4,8 @@ load("Equivalence.py")
 verbose = True
 
 # Testing a function from n bits to m bits
-m = 6
-n = 6
+m = 8
+n = 8
 
 # If you wish to test equivalent function or not
 equiv = True   
@@ -31,13 +31,13 @@ threshold = 10
 
 #----------------------------------------------------------------#
 
-print "-----------------"
-print "Testing the equivalence of pairs of functions from "\
-    + str(n) + " bits to " + str(m) + " bits.\n-----------------"
+print("-----------------")
+print("Testing the equivalence of pairs of functions from "\
+    + str(n) + " bits to " + str(m) + " bits.\n-----------------")
 
 for i in range(ntests):
     timings = []
-    print "\n**** Test #" + str(i+1) + " ****"
+    print("\n**** Test #" + str(i+1) + " ****")
     F = random_vector_function(m, n, 2)
 
     # Generate function G, either equivalent to F or random.
@@ -55,7 +55,7 @@ for i in range(ntests):
     Z = get_equivalence(F, G, threshold, s, verbose)
     end = time.time()
     timings.append(end-start)
-    print "Time : " + str(end-start) + " seconds."
+    print("Time : " + str(end-start) + " seconds.")
     
     ntries += Z[5]
     if verbose:
@@ -68,12 +68,12 @@ for i in range(ntests):
         aff_ranks = list(s2)
         lin_ranks.sort()
         aff_ranks.sort()
-        #print "\n--------------------"
-        #print "Observed ranks of the linear and affine systems of the "+\
-        #  "various guesses"
-        #print "Linear systems : " + str(lin_ranks)
-        #print "Affine systems : " + str(aff_ranks)
-        #print "--------------------\n"
+        #print("\n--------------------")
+        #print("Observed ranks of the linear and affine systems of the "+\
+        #  "various guesses")
+        #print("Linear systems : " + str(lin_ranks))
+        #print("Affine systems : " + str(aff_ranks))
+        #print("--------------------\n")
 
-print "Average number of tries = " + str(ntries * 1. / ntests)
-print "Average time = " + str(sum(timings) * 1. / len(timings)) + " seconds."
+print("Average number of tries = " + str(ntries * 1. / ntests))
+print("Average time = " + str(sum(timings) * 1. / len(timings)) + " seconds.")
